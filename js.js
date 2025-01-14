@@ -75,6 +75,15 @@ let playGame = () => {
         r -= 1
 
     }
-    console.log(humanScore, computerScore)
+    console.log(`Your Score ${humanScore}, Computer Score ${computerScore}`)
+
+    if (humanScore > computerScore) {
+        console.log("You Win!")
+    }
+    if (humanScore < computerScore) {
+        console.log("You Loose!")
+    } else {
+        console.log("Tie!")
+    }
 }
 playGame();

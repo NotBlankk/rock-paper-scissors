@@ -1,6 +1,10 @@
+//=================================
+// variable to keep track of scores
 let humanScore = 0
 let computerScore = 0
 
+//============================================================
+//function to randomly choose between rock paper and scissors
 let getComputerChoice = () => {
     let val = Math.random()
     if (val > 0.66) {
@@ -14,18 +18,16 @@ let getComputerChoice = () => {
     else {
         return 'scissors'
     }
-    console.log(val)
+    
 
 }
-// console.log(getComputerChoice());
 
-let getHumanChoice = () => {
-    let val = prompt("Choose Rock, Paper or Scissors")
-    return val
-}
-// console.log(getHumanChoice());
+//============================================================
+//code to calculate the winner of the rock paper scissors game
 
 let playRound = (humanChoice, computerChoice) => {
+    console.log(`Your Choice ${humanChoice}, Computer's Choice ${computerChoice}`)
+    console.log(`Your Score ${humanScore} Computer's Score ${computerScore}`)
     hc = humanChoice.toLowerCase()
     if (hc == computerChoice) {
         console.log("Tie")
@@ -60,30 +62,83 @@ let playRound = (humanChoice, computerChoice) => {
             console.log("You lose! Rock beats Scissors")
         }
     }
+    
 
 }
-// let humanChoice = getHumanChoice();
-// let computerChoice = getComputerChoice();
-// playRound(humanChoice, computerChoice);
+//================================
+//function to reset the score after someone wins
+let resetGame = () => {
 
-let playGame = () => {
-    let r = 5
-    while(r) {
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-        playRound(humanChoice, computerChoice);
-        r -= 1
+    humanScore = 0
+    computerScore = 0
+}
 
-    }
-    console.log(`Your Score ${humanScore}, Computer Score ${computerScore}`)
 
-    if (humanScore > computerScore) {
-        console.log("You Win!")
-    }
-    if (humanScore < computerScore) {
-        console.log("You Loose!")
+//================================================
+//function to show the winner once the score is 5
+let winnerDisplay = () => {
+    if (humanScore > computerScore){
+        resultDiv.innerText += "\nYou Win"
+
     } else {
-        console.log("Tie!")
+        resultDiv.innerText += "\nYou Loose"
+
     }
+    resultDiv.innerText += "\nGAME OVER"
+    resetGame();
+
+
 }
-playGame();
+
+
+//========================================================================================================================
+// Created Three Buttons for Playing Rock Paper Scissors and Added the feature to play game from clicking the buttons only
+let rockBtn = document.createElement("button")
+rockBtn.innerText = "ROCK"
+
+let paperBtn = document.createElement("button")
+paperBtn.innerText = "PAPER"
+
+let scissorsBtn = document.createElement("button")
+scissorsBtn.innerText = "SCISSORS"
+
+rockBtn.addEventListener("click", function(){
+    playRound("Rock", getComputerChoice())
+    resultDiv.innerText = `Score Your: ${humanScore}  Computer: ${computerScore}`
+    if ((humanScore == 5) || (computerScore == 5)){
+        winnerDisplay();
+
+    }
+
+})
+paperBtn.addEventListener("click", function(){
+    playRound("Paper", getComputerChoice())
+    resultDiv.innerText = `Score Your: ${humanScore}  Computer: ${computerScore}`
+    if ((humanScore == 5) || (computerScore == 5)){
+        winnerDisplay();
+
+
+    }
+
+})
+scissorsBtn.addEventListener("click", function(){
+    playRound("Scissors", getComputerChoice())
+    resultDiv.innerText = `Score Your: ${humanScore}  Computer: ${computerScore}`
+    if ((humanScore == 5) || (computerScore == 5)){
+        winnerDisplay();
+
+    }
+
+})
+
+document.body.appendChild(scissorsBtn)
+document.body.appendChild(paperBtn)
+document.body.appendChild(rockBtn)
+
+
+//====================================================
+// Created a div for displaying the score of the game 
+
+let resultDiv = document.createElement("div")
+resultDiv.innerText = `Score Your: ${humanScore}  Computer: ${computerScore}`
+document.body.appendChild(resultDiv)
